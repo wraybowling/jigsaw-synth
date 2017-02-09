@@ -1,0 +1,73 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>03 - Jigsaw Generator</title>
+  <link rel="stylesheet" href="wildcard.css">
+  <link rel="stylesheet" href="typography.css">
+  <link rel="stylesheet" href="controls.css">
+  <link rel="stylesheet" href="puzzle.css">
+</head>
+
+<body>
+
+  <svg id="puzzle" viewBox="0 0 800 600">
+    <g id="dots"></g>
+    <g id="lines"></g>
+    <g id="tabs"></g>
+  </svg>
+
+  <form class="controls">
+    <label>
+      Tab Width
+      <input type="range" id="tabWidth" min="1" max="200" value="100">
+    </label>
+
+    <label>
+      Offset
+      <input type="range" id="offset" min="0" max="600" value="100">
+    </label>
+
+    <label>
+      Overshoot
+      <input type="range" id="overshoot" min="0" max="3" value="1.6" step="0.1">
+    </label>
+
+    <label>
+      Wiggle
+      <input type="range" id="wiggle" min="0" max="1" value="0" step="0.001">
+    </label>
+
+    <label>
+      Woggle
+      <input type="range" id="woggle" min="0" max="200" value="0">
+    </label>
+
+    <label>
+      Lead
+      <input type="range" id="lead" min="0" max="200" value="0">
+    </label>
+
+    <label>
+      Piece Size
+      <input type="range" id="pieceSize" min="100" max="200" value="150">
+    </label>
+
+    <label>
+      Voronoise
+      <input type="range" id="voronoise" min="0" max="1" value="0" step="0.001">
+    </label>
+
+    <label>
+      Bezel
+      <input type="range" id="bezel" min="0" max="100" value="0">
+    </label>
+  </form>
+
+  <script src="../lib/voronoi/rhill-voronoi-core.min.js"></script>
+  <script src="vec2.js"></script>
+  <script src="tab.js"></script>
+  <script src="dom.js"></script>
+  <script src="controls.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+.controls{
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.controls label{
+  margin: 0.25em 0.25em;
+  padding:0.5em 0.5em 0 0.5em;
+  border:solid 1px #cdab7c;
+  flex:1;
+  flex-basis: 10em;
+  flex-grow: 1;
+  background-color:#eed6b9;
+  color:#3a2f1f;
+}
+
+.controls input{
+  vertical-align:middle;
+  width:100%;
+}
