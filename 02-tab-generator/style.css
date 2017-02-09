@@ -1,0 +1,50 @@
+*{
+  margin:0;
+}
+
+svg{
+  width:600px;
+  height:400px;
+  background-color:tan;
+}
+
+#squiggle{
+  stroke:black;
+  stroke-width:3px;
+  fill:none;
+  marker-mid:url(#hash);
+  marker-end:url(#dot);
+  marker-start:url(#dot);
+}
+
+#visualization,
+#test{
+  fill:none;
+  stroke:rgba(0,255,0,0.75);
+  stroke-weight:0.5;
+  marker-mid:url(#dotRed);
+  marker-end:url(#dotRed);
+  marker-start:url(#dotRed);
+}
+
+marker{
+  overflow:visible;
+}
+
+#hash{
+  fill:none;
+  stroke:red;
+  stroke-width:1px;
+}
+
+#dot{
+  fill:white;
+}
+
+#dotRed{
+  fill:rgba(255,0,0,0.25);
+}
+
+label{
+  display:block;
+}

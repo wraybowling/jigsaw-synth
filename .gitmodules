@@ -1,0 +1,3 @@
+[submodule "lib/voronoi"]
+	path = lib/voronoi
+	url = git@github.com:gorhill/Javascript-Voronoi.git
