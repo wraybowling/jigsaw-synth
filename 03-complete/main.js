@@ -41,7 +41,7 @@ function draw(){
   }
 
   // remove old pieces
-  for(let i=0; i<=(pieces.length - p); i++){
+  for(let i=0; i<(pieces.length - p); i++){
     dotGroup.lastChild.remove();
     pieces.pop();
   }
@@ -49,27 +49,25 @@ function draw(){
   // build piece scaffolding
 
   let vData = v.compute(pieces,BOUNDS);
-  let l=0;
-  for(; l<vData.edges.length; l++){
-    let p1 = vData.edges[l].va;
-    let p2 = vData.edges[l].vb;
-
-    if(l >= lines.length) {
-      let line = document.createElementNS(svgNS,'line');
-      lineGroup.appendChild(line);
-      lines.push(line);
+  let loops = Math.max(vData.edges.length,lineGroup.childElementCount);
+  for (i=0; i<loops; i++) {
+    if (i < vData.edges.length) {
+      let p1 = vData.edges[i].va;
+      let p2 = vData.edges[i].vb;
+      if (i === lineGroup.childElementCount) {
+        let line = document.createElementNS(svgNS,'line');
+        lineGroup.appendChild(line);
+      }
+      lineGroup.children[i].setAttributeNS(null,'x1',p1.x);
+      lineGroup.children[i].setAttributeNS(null,'y1',p1.y);
+      lineGroup.children[i].setAttributeNS(null,'x2',p2.x);
+      lineGroup.children[i].setAttributeNS(null,'y2',p2.y);
+    } else {
+      lineGroup.children[i].remove();
     }
-    lines[l].setAttributeNS(null,'x1',p1.x);
-    lines[l].setAttributeNS(null,'y1',p1.y);
-    lines[l].setAttributeNS(null,'x2',p2.x);
-    lines[l].setAttributeNS(null,'y2',p2.y);
   }
 
-  // remove old lines
-  for(let i=0; i<(lines.length - l); i++){
-    lines[lines.length-1].remove();
-    lines.pop();
-  }
+  
 
 }
 
