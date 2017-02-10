@@ -8,7 +8,13 @@
 }
 
 #lines line{
-  stroke:black;
+  stroke:rgba(0,255,0,0.5);
   fill:none;
   stroke-width:1px;
+}
+
+#tabs path{
+  stroke:black;
+  stroke-width:1px;
+  fill:none;
 }

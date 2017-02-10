@@ -57,18 +57,18 @@ function draw(){
       if (i === lineGroup.childElementCount) {
         let line = document.createElementNS(svgNS,'line');
         lineGroup.appendChild(line);
+        let tab = document.createElementNS(svgNS,'path');
+        tabGroup.appendChild(tab);
       }
       lineGroup.children[i].setAttributeNS(null,'x1',p1.x);
       lineGroup.children[i].setAttributeNS(null,'y1',p1.y);
       lineGroup.children[i].setAttributeNS(null,'x2',p2.x);
       lineGroup.children[i].setAttributeNS(null,'y2',p2.y);
+      tabGroup.children[i].setAttributeNS(null,'d',drawTabs(p1,p2));
     } else {
       lineGroup.children[i].remove();
     }
   }
-
-  
-
 }
 
 draw();

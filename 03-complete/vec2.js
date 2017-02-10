@@ -21,3 +21,16 @@ class Vec2 {
            + this.originY;
   }
 }
+
+
+// utilities to be refactored
+function lerp(v0, v1, t){
+  return (1 - t) * v0 + t * v1;
+}
+
+function lerpVec(v0, v1, t){
+  return {
+    x: lerp(v0.x, v1.x, t),
+    y: lerp(v0.y, v1.y, t)
+  }
+}
