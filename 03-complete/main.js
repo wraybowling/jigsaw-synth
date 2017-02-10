@@ -7,38 +7,39 @@ const BOUNDS = {xl: 0, xr: 800, yt: 0, yb: 600};
 var pieces = [];
 var lines = [];
 
+const v = new Voronoi();
+
 function draw(){
 
   let d=0;
   for(let y=BOUNDS.yt+controls.bezel; y<BOUNDS.yb-controls.bezel; y+=controls.pieceSize){
     for(let x=BOUNDS.xl+controls.bezel; x<BOUNDS.xr-controls.bezel; x+=controls.pieceSize){
-      if (pieces.length <= d) {
+      if (d >= pieces.length) {
         let piece = new Vec2(x,y);
         piece.el = document.createElementNS(svgNS,'circle');
         dotGroup.appendChild(piece.el);
         pieces.push(piece);
       }
 
-        pieces[d].el.setAttributeNS(null,'cx',x);
-        pieces[d].el.setAttributeNS(null,'cy',y);
-        pieces[d].el.setAttributeNS(null,'r',5);
-
-      // else {
-      //   dot = dotGroup.children[i];
-      // }
+      pieces[d].originX = x;
+      pieces[d].originY = y;
+      pieces[d].randomize();
+      pieces[d].el.setAttributeNS(null,'cx',pieces[d].x);
+      pieces[d].el.setAttributeNS(null,'cy',pieces[d].y);
+      pieces[d].el.setAttributeNS(null,'r',5);
 
       d++;
     }
   }
 
   // remove old pieces
-  for(let i=0; i<(pieces.length - d); i++){
-    pieces[pieces.length-1].el.remove();
+  for(let i=0; i<=(pieces.length - d); i++){
+    dotGroup.lastChild.remove();
     pieces.pop();
   }
 
   // build piece scaffolding
-  let v = new Voronoi();
+
   let vData = v.compute(pieces,BOUNDS);
   let l=0;
   for(; l<vData.edges.length; l++){

@@ -6,13 +6,14 @@ class Vec2 {
     this.originY = y;
   }
 
-  get(){
-    this.x = sin(this.originX / 3.0)
-           * sin(this.originY / 4.0)
-           * voronoise;
-    this.y = sin(this.originX / 5.0)
-           * sin(this.originY / 6.0)
-           * voronoise;
-    return this;
+  randomize(){
+    this.x = Math.sin(this.originX / 3.1)
+           * Math.sin(this.originY / 41.2)
+           * controls.voronoise
+           + this.originX;
+    this.y = Math.sin(this.originX / 5.3)
+           * Math.sin(this.originY / 61.4)
+           * controls.voronoise
+           + this.originY;
   }
 }
