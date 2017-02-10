@@ -11,29 +11,37 @@ const v = new Voronoi();
 
 function draw(){
 
-  let d=0;
-  for(let y=BOUNDS.yt+controls.bezel; y<BOUNDS.yb-controls.bezel; y+=controls.pieceSize){
-    for(let x=BOUNDS.xl+controls.bezel; x<BOUNDS.xr-controls.bezel; x+=controls.pieceSize){
-      if (d >= pieces.length) {
-        let piece = new Vec2(x,y);
+  // round the size of the pieces so the bezel is more uniform
+  xRange = (BOUNDS.xr - BOUNDS.xl - controls.bezel*2);
+  xSlices = Math.ceil(xRange / controls.pieceSize);
+  xLength = xRange / xSlices;
+  yRange = (BOUNDS.yb - BOUNDS.yt - controls.bezel*2);
+  ySlices = Math.ceil(yRange / controls.pieceSize);
+  yLength = yRange / ySlices;
+
+  let p=0; // piece index
+  for(let y=0; y<ySlices; y++){
+    for(let x=0; x<xSlices; x++){
+      if (p >= pieces.length) {
+        let piece = new Vec2(0,0);
         piece.el = document.createElementNS(svgNS,'circle');
+        piece.el.setAttributeNS(null,'r',3);
         dotGroup.appendChild(piece.el);
         pieces.push(piece);
       }
 
-      pieces[d].originX = x;
-      pieces[d].originY = y;
-      pieces[d].randomize();
-      pieces[d].el.setAttributeNS(null,'cx',pieces[d].x);
-      pieces[d].el.setAttributeNS(null,'cy',pieces[d].y);
-      pieces[d].el.setAttributeNS(null,'r',5);
+      pieces[p].originX = (x + 0.5)*xLength + controls.bezel;
+      pieces[p].originY = (y + 0.5)*yLength + controls.bezel;
+      pieces[p].randomize();
+      pieces[p].el.setAttributeNS(null,'cx',pieces[p].x);
+      pieces[p].el.setAttributeNS(null,'cy',pieces[p].y);
 
-      d++;
+      p++;
     }
   }
 
   // remove old pieces
-  for(let i=0; i<=(pieces.length - d); i++){
+  for(let i=0; i<=(pieces.length - p); i++){
     dotGroup.lastChild.remove();
     pieces.pop();
   }

@@ -3,6 +3,10 @@
   width:100%;
 }
 
+#dots circle{
+  fill: red;
+}
+
 #lines line{
   stroke:black;
   fill:none;

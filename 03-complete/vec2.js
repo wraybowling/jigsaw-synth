@@ -7,13 +7,17 @@ class Vec2 {
   }
 
   randomize(){
-    this.x = Math.sin(this.originX / 3.1)
-           * Math.sin(this.originY / 41.2)
-           * controls.voronoise
+    this.x = Math.sin(this.originX / 0.01 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originX / 0.7 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originY / 0.02 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originY / 0.3 / controls.pieceSize + controls.seed)
+           * controls.voronoise * controls.pieceSize
            + this.originX;
-    this.y = Math.sin(this.originX / 5.3)
-           * Math.sin(this.originY / 61.4)
-           * controls.voronoise
+    this.y = Math.sin(this.originX / 0.01 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originX / 0.5 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originY / 0.04 / controls.pieceSize + controls.seed)
+           * Math.sin(this.originY / 0.6 / controls.pieceSize + controls.seed)
+           * controls.voronoise * controls.pieceSize
            + this.originY;
   }
 }
