@@ -2,3 +2,9 @@
   height:75vh;
   width:100%;
 }
+
+#lines line{
+  stroke:black;
+  fill:none;
+  stroke-width:1px;
+}
