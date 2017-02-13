@@ -2,7 +2,7 @@
 console.log('main');
 console.log('controls',controls);
 
-const BOUNDS = {xl: 0, xr: 800, yt: 0, yb: 600};
+const BOUNDS = {xl: 0, xr: 1200, yt: 0, yb: 800};
 
 var pieces = [];
 var lines = [];
