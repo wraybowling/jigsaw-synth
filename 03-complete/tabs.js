@@ -3,6 +3,14 @@ function drawTabs(p1,p2){
   let A = [p1.x,p1.y];
   let B = [p2.x,p2.y];
 
+  if(
+    (p1.x === BOUNDS.xl && p2.x === BOUNDS.xl) ||
+    (p1.x === BOUNDS.xr && p2.x === BOUNDS.xr) ||
+    (p1.y === BOUNDS.yt && p2.y === BOUNDS.yt) ||
+    (p1.y === BOUNDS.yb && p2.y === BOUNDS.yb)) {
+      return ['M',p1.x,p1.y,'L',p2.x,p2.y].join(' ');
+    }
+
   let length = Math.sqrt(Math.pow(A[0]-B[0],2) + Math.pow(A[1]-B[1],2));
 
   let slices = Math.ceil(length / controls.tabWidth);
