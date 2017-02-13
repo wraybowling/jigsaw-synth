@@ -24,7 +24,7 @@ function drawTabs(p1,p2){
   // draw the first handle manually
   var sequence_s = ['M',A,'C'];
   var sequence_v = ['M',A,'L'];
-  var flipflop = Math.random() > 0.5 ? -1 : 1;
+  var flipflop = 1; //Math.random() > 0.5 ? -1 : 1;
 
   let firstHandle = [
     lerp(A[0],B[0],1/slices*controls.overshoot),
