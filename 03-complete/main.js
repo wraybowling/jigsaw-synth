@@ -49,6 +49,7 @@ function draw(){
   // build piece scaffolding
 
   let vData = v.compute(pieces,BOUNDS);
+  // console.log(vData);
   let loops = Math.max(vData.edges.length,lineGroup.childElementCount);
   for (i=0; i<loops; i++) {
     if (i < vData.edges.length) {

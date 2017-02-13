@@ -66,8 +66,6 @@ function drawTabs(p1,p2){
     ];
     sequence_s.push(anchor);
 
-    console.log('slices',slices);
-
     if(slices === 2){
       let secondLastHandle = [
         lerp(A[0],B[0],(slices-1)/slices+controls.overshoot*mult/slices) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
@@ -77,7 +75,6 @@ function drawTabs(p1,p2){
 
     }
   }
-  console.groupEnd();
 
   let lastHandle = [
     lerp(A[0],B[0],(slices-controls.overshoot)/slices),
