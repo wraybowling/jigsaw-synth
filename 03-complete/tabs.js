@@ -26,29 +26,28 @@ function drawTabs(p1,p2){
 
 
   // generate tabs and blanks
-  console.group('tab loop');
+
   for(let i=1; i<slices; i++){
 
     if(i===2) sequence_s.push('S');
     let t = i/slices;
 
-    // lerpX = ;
-    // lerpX += (Math.random() - 0.5) * WOGGLE;
-    // lerpY = ;
-    // lerpY += (Math.random() - 0.5) * WOGGLE;
+    t = t * (1-controls.lead) + (t/2 + controls.lead * Math.pow(-t*2+1,3)/2); // S curve to move points towards 0.5
 
     // flip flop
     flipflop *= -1;
 
-    let mult = 1 - Math.random() * controls.wiggle;
+    let taper = Math.cos((t+0.5)*Math.PI*2) / 2 + 0.5;
+
+    let mult = (1 - Math.random() * controls.wiggle) * taper*controls.taper + (1-controls.taper)*(1 - Math.random() * controls.wiggle);
 
     let offsetX = flipflop * slope_x * controls.offset * mult;// / slices;
     let offsetY = flipflop * slope_y * controls.offset * mult;// / slices;
 
     // leading up to anchor
     let handle = [
-      lerp(A[0],B[0],t-controls.overshoot*mult/slices) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
-      lerp(A[1],B[1],t-controls.overshoot*mult/slices) - offsetY + Math.random()*controls.woggle-controls.woggle/2
+      lerp(A[0],B[0],t-controls.overshoot*mult/slices) + offsetX + (Math.random()*controls.woggle-controls.woggle/2) * taper*controls.taper,
+      lerp(A[1],B[1],t-controls.overshoot*mult/slices) - offsetY + (Math.random()*controls.woggle-controls.woggle/2) * taper*controls.taper
     ];
     sequence_s.push(handle);
 
