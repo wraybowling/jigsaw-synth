@@ -1,3 +1,6 @@
 [submodule "lib/voronoi"]
 	path = lib/voronoi
 	url = git@github.com:gorhill/Javascript-Voronoi.git
+[submodule "lib/download"]
+	path = lib/download
+	url = git@github.com:rndme/download.git

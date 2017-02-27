@@ -41,9 +41,9 @@ function draw(){
   }
 
   // remove old pieces
-  for(let i=0; i<(pieces.length - p); i++){
-    dotGroup.lastChild.remove();
-    pieces.pop();
+  for(; p<pieces.length; p++){
+    pieces[p].el.remove();
+    pieces.splice(p,1);
   }
 
   // build piece scaffolding
@@ -66,10 +66,29 @@ function draw(){
       lineGroup.children[i].setAttributeNS(null,'x2',p2.x);
       lineGroup.children[i].setAttributeNS(null,'y2',p2.y);
       tabGroup.children[i].setAttributeNS(null,'d',drawTabs(p1,p2));
-    } else {
-      lineGroup.children[i].remove();
     }
+  }
+  // remove old tabs
+  while(vData.edges.length < lineGroup.childElementCount){
+    lineGroup.lastChild.remove();
   }
 }
 
 draw();
+
+function saveSVG(){
+  console.log('exporting...');
+  download(`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="1200" viewbox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" >
+<style>
+  path{
+    stroke:black;
+    stroke-width:1px;
+    fill:none;
+  }
+</style>
+
+${tabGroup.outerHTML}
+</svg>
+    `,'puzzle.svg','text/svg');
+}

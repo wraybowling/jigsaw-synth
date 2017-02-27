@@ -40,7 +40,7 @@ function drawTabs(p1,p2){
     if(i===2) sequence_s.push('S');
     let t = i/slices;
 
-    t = t * (1-controls.lead) + (t/2 + controls.lead * Math.pow(-t*2+1,3)/2); // S curve to move points towards 0.5
+    t = t * (1-controls.lead) + (controls.lead)/2;
 
     // flip flop
     flipflop *= -1;
