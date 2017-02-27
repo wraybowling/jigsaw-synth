@@ -3,11 +3,13 @@ function drawTabs(p1,p2){
   let A = [p1.x,p1.y];
   let B = [p2.x,p2.y];
 
+  const boundsThereshold = 0.1;
+
   if(
-    (p1.x === BOUNDS.xl && p2.x === BOUNDS.xl) ||
-    (p1.x === BOUNDS.xr && p2.x === BOUNDS.xr) ||
-    (p1.y === BOUNDS.yt && p2.y === BOUNDS.yt) ||
-    (p1.y === BOUNDS.yb && p2.y === BOUNDS.yb)) {
+    (Math.abs(p1.x - BOUNDS.xl) < boundsThereshold && Math.abs(p2.x - BOUNDS.xl) < boundsThereshold) ||
+    (Math.abs(p1.x - BOUNDS.xr) < boundsThereshold && Math.abs(p2.x - BOUNDS.xr) < boundsThereshold) ||
+    (Math.abs(p1.y - BOUNDS.yt) < boundsThereshold && Math.abs(p2.y - BOUNDS.yt) < boundsThereshold) ||
+    (Math.abs(p1.y - BOUNDS.yb) < boundsThereshold && Math.abs(p2.y - BOUNDS.yb) < boundsThereshold)) {
       return ['M',p1.x,p1.y,'L',p2.x,p2.y].join(' ');
     }
 
