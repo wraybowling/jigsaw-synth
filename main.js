@@ -12,10 +12,10 @@ const v = new Voronoi();
 function draw(){
 
   // round the size of the pieces so the bezel is more uniform
-  xRange = (BOUNDS.xr - BOUNDS.xl - controls.bezel*2);
+  xRange = (BOUNDS.xr - BOUNDS.xl);
   xSlices = Math.ceil(xRange / controls.pieceSize);
   xLength = xRange / xSlices;
-  yRange = (BOUNDS.yb - BOUNDS.yt - controls.bezel*2);
+  yRange = (BOUNDS.yb - BOUNDS.yt);
   ySlices = Math.ceil(yRange / controls.pieceSize);
   yLength = yRange / ySlices;
 
@@ -30,9 +30,11 @@ function draw(){
         pieces.push(piece);
       }
 
-      pieces[p].originX = (x + 0.5)*xLength + controls.bezel;
-      pieces[p].originY = (y + 0.5)*yLength + controls.bezel;
+      pieces[p].originX = (x + 0.5)*xLength;
+      pieces[p].originY = (y + 0.5)*yLength;
       pieces[p].randomize();
+      pieces[p].x = pieces[p].x - ((pieces[p].x / xRange) * 2 - 1) * controls.bezel;
+      pieces[p].y = pieces[p].y - ((pieces[p].y / yRange) * 2 - 1) * controls.bezel;
       pieces[p].el.setAttributeNS(null,'cx',pieces[p].x);
       pieces[p].el.setAttributeNS(null,'cy',pieces[p].y);
 
