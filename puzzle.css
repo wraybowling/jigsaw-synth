@@ -1,20 +1,24 @@
+body{
+  background-color:#222;
+}
+
 #puzzle{
-  height:75vh;
+  height:70vh;
   width:100%;
 }
 
 #dots circle{
-  fill: red;
+  fill: rgba(255,255,255,0.5);
 }
 
 #lines line{
-  stroke:rgba(0,255,0,0.5);
+  stroke:rgba(244, 27, 176, 0.42);
   fill:none;
   stroke-width:1px;
 }
 
 #tabs path{
-  stroke:black;
-  stroke-width:1px;
+  stroke:rgba(225, 255, 0, 0.39);
+  stroke-width:2px;
   fill:none;
 }
