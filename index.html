@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>03 - Jigsaw Generator</title>
-  <link rel="stylesheet" href="wildcard.css">
+  <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="typography.css">
   <link rel="stylesheet" href="controls.css">
   <link rel="stylesheet" href="puzzle.css">
@@ -10,82 +10,84 @@
 
 <body>
 
-  <svg id="puzzle" viewBox="0 0 800 800">
+  <svg id="puzzle" viewBox="-1 -1 802 802">
     <g id="dots"></g>
     <g id="lines"></g>
     <g id="tabs"></g>
   </svg>
 
-  <form class="controls">
-<!--
-    <label>
-      Width
-      <input type="number" id="puzzleWidth" min="4" max="11" value="11" step="0.1">
-    </label>
+  <div class="ui">
+    <form class="controls">
+  <!--
+      <label>
+        Width
+        <input type="number" id="puzzleWidth" min="4" max="11" value="11" step="0.1">
+      </label>
 
-    <label>
-      Height
-      <input type="number" id="puzzleHeight" min="4" max="11" value="11" step="0.1">
-    </label>
--->
-    <label>
-      Bezel
-      <input type="range" id="bezel" min="0" max="90" value="10">
-    </label>
+      <label>
+        Height
+        <input type="number" id="puzzleHeight" min="4" max="11" value="11" step="0.1">
+      </label>
+  -->
+      <label>
+        Bezel
+        <input type="range" id="bezel" min="0" max="90" value="10">
+      </label>
 
-    <label>
-      Piece Size
-      <input type="range" id="pieceSize" min="100" max="400" value="90" step="0.01">
-    </label>
+      <label>
+        Piece Size
+        <input type="range" id="pieceSize" min="100" max="400" value="90" step="0.01">
+      </label>
 
-    <label>
-      Piece Noise
-      <input type="range" id="voronoise" min="0" max="4" value="0.78" step="0.01">
-    </label>
+      <label>
+        Piece Noise
+        <input type="range" id="voronoise" min="0" max="4" value="0.78" step="0.01">
+      </label>
 
-    <label>
-      Noise Seed
-      <input type="range" id="seed" min="0" max="3.14" value="1.2" step="0.001">
-    </label>
+      <label>
+        Noise Seed
+        <input type="range" id="seed" min="0" max="3.14" value="1.2" step="0.001">
+      </label>
 
-    <label>
-      Tab Length
-      <input type="range" id="offset" min="0" max="80" value="17" step="0.001">
-    </label>
+      <label>
+        Tab Length
+        <input type="range" id="offset" min="0" max="80" value="17" step="0.001">
+      </label>
 
-    <label>
-      Random Tab Size
-      <input type="range" id="wiggle" min="0" max="1" value="0" step="0.001">
-    </label>
+      <label>
+        Random Tab Size
+        <input type="range" id="wiggle" min="0" max="1" value="0" step="0.001">
+      </label>
 
-    <label>
-      Tab Width
-      <input type="range" id="tabWidth" min="10" max="200" value="15">
-    </label>
+      <label>
+        Tab Width
+        <input type="range" id="tabWidth" min="10" max="200" value="15">
+      </label>
 
-    <label>
-      Interlock
-      <input type="range" id="overshoot" min="0" max="3" value="1.4" step="0.001">
-    </label>
+      <label>
+        Interlock
+        <input type="range" id="overshoot" min="0" max="3" value="1.4" step="0.001">
+      </label>
 
-    <label>
-      Woggle
-      <input type="range" id="woggle" min="0" max="7" value="0" step="0.001">
-    </label>
+      <label>
+        Woggle
+        <input type="range" id="woggle" min="0" max="7" value="0" step="0.001">
+      </label>
 
-    <label>
-      Lead
-      <input type="range" id="lead" min="0" max="1" value="0.3" step="0.0001">
-    </label>
+      <label>
+        Lead
+        <input type="range" id="lead" min="0" max="1" value="0.3" step="0.0001">
+      </label>
 
-    <label>
-      Taper
-      <input type="range" id="taper" min="0" max="1" value="1" step="0.001">
-    </label>
+      <label>
+        Taper
+        <input type="range" id="taper" min="0" max="1" value="1" step="0.001">
+      </label>
 
-  </form>
+    </form>
 
-  <button onclick="saveSVG()">EXPORT</button>
+    <button onclick="saveSVG()">EXPORT</button>
+  </div>
 
   <script src="lib/voronoi/rhill-voronoi-core.min.js"></script>
   <script src="lib/download/download.min.js"></script>

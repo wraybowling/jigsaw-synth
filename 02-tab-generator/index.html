@@ -34,7 +34,6 @@
 </svg>
 
 <form>
-
   <label>
     Tab Width
     <input type="range" id="tabWidth" min="1" max="200" value="100">
@@ -62,10 +61,11 @@
 
   <label>
     Lead
-    <input type="range" id="lead" min="0" max="200" value="0">
+    <input type="range" id="lead" min="0" max="1" value="0" step="0.001">
   </label>
 </form>
 
+<script src="../controls.js"></script>
 <script src="main.js"></script>
 
 </body>

@@ -1,13 +1,15 @@
+'use strict';
+
 // utilities
-function lerp(v0, v1, t){
-  return (1 - t) * v0 + t * v1;
+function lerp(a, b, t){
+  return (1 - t) * a + t * b;
 }
 
-function lerpVec(v0, v1, t){
-  return {
-    x: lerp(v0.x, v1.x, t),
-    y: lerp(v0.y, v1.y, t)
-  }
+function lerpVec(a, b, t){
+  return [
+    lerp(a[0], b[0], t),
+    lerp(a[1], b[1], t)
+  ]
 }
 
 // DOM
@@ -19,49 +21,58 @@ const WOGGLE = 30;
 const OFFSET_BASE = 1.5;
 const SCURVE_BASE = 0.2;
 
-// Controllable Parameters
-const tabWidthSlider = document.getElementById('tabWidth');
-let tabWidth = tabWidthSlider.value;
-const offsetSlider = document.getElementById('offset');
-let offset = offsetSlider.value;
-const overshootSlider = document.getElementById('overshoot');
-let overshoot = overshootSlider.value;
-const wiggleSlider = document.getElementById('wiggle');
-let wiggle = wiggleSlider.value;
-const woggleSlider = document.getElementById('woggle');
-let woggle = woggleSlider.value;
-const leadSlider = document.getElementById('lead');
-let lead = leadSlider.value;
-
 // Coordinates
-var A = [100,100];
-var B = [500,300];
+var A = [100, 100];
+var I = [500, 300];
 
-function drawPegs(){
+function draw(){
+  let length = Math.sqrt(Math.pow(A[0]-I[0],2) + Math.pow(A[1]-I[1],2));
 
-  let length = Math.sqrt(Math.pow(A[0]-B[0],2) + Math.pow(A[1]-B[1],2));
+  let slices = Math.ceil(length / controls.tabWidth);
 
-  let slices = Math.ceil(length / tabWidth);
+  let theta = Math.atan2(I[0] - A[0], I[1] - A[1]);
 
-  let theta = Math.atan2(B[0] - A[0], B[1] - A[1]);
-
-  let slope_y = Math.sin(theta);
-  let slope_x = Math.cos(theta);
-
-  // set the start point
-  // draw the first handle manually
-  var sequence_s = ['M',A,'C'];
-  var sequence_v = ['M',A,'L'];
-  var flipflop = 1;
-
-  let firstHandle = [
-    lerp(A[0],B[0],1/slices*overshoot),
-    lerp(A[1],B[1],1/slices*overshoot)
-  ];
-  sequence_s.push(firstHandle);
-  sequence_v.push(firstHandle);
+  let slopeY = Math.sin(theta);
+  let slopeX = Math.cos(theta);
 
   // generate tabs and blanks
+  //
+  //         f-F-g
+  //         \   G
+  // Aa-b-B-c E h-H---iI
+  //       C   \
+  //       d-D-e
+  //
+  // A: Start anchor: handle points to I at half of lead length
+  // B: Lead node: provides offset from anchor to tabs: handle uses overshoot
+  // C: Side roundness node: ensures fairness: handle uses overshoot
+  // D: Tab roundless node: handle uses overshoot
+  // E: Side roundness node: reinforces S fairness: handles use overshoot and independent length based on offset
+  // F: same as D
+  // G: same as C
+  // H: same as B
+  // I: End anchor: handle points to A at half of lead length
+  //
+
+  // Sequences preloaded with Node A
+  var sequence_s = ['M', A, 'C'];
+  var sequence_v = ['M', A, 'L'];
+
+  let a = lerpVec(A,I, controls.lead*0.25);
+  let b = lerpVec(A,I, controls.lead*0.75);
+  let B = lerpVec(A,I, controls.lead);
+ 
+  let d = lerpVec(A,I, controls.lead*1.25);
+  let D = [
+    lerp(A[0], I[0], 1/slices * controls.overshoot),
+    lerp(A[1], I[1], 1/slices * controls.overshoot) + controls.offset
+  ];
+  sequence_s.push(a,b,B,d,D);
+  sequence_v.push(a,b,B,d,D);
+
+  let flipflop = 1;
+  
+  /*
   console.group('loop');
   for(let i=1; i<slices; i++){
 
@@ -78,20 +89,20 @@ function drawPegs(){
 
     let mult = 1 - Math.random() * wiggle;
 
-    let offsetX = flipflop * slope_x * offset * mult;// / slices;
-    let offsetY = flipflop * slope_y * offset * mult;// / slices;
+    let offsetX = flipflop * slopeX * offset * mult;// / slices;
+    let offsetY = flipflop * slopeY * offset * mult;// / slices;
 
     // leading up to anchor
     let handle = [
-      lerp(A[0],B[0],t-overshoot*mult/slices) + offsetX + Math.random()*woggle-woggle/2,
-      lerp(A[1],B[1],t-overshoot*mult/slices) - offsetY + Math.random()*woggle-woggle/2
+      lerp(A.x,B.x,t-overshoot*mult/slices) + offsetX + Math.random()*woggle-woggle/2,
+      lerp(A.y,B.y,t-overshoot*mult/slices) - offsetY + Math.random()*woggle-woggle/2
     ];
     sequence_s.push(handle);
     sequence_v.push(handle);
     // anchor
     let anchor = [
-      lerp(A[0],B[0],t) + offsetX + Math.random()*woggle-woggle/2,
-      lerp(A[1],B[1],t) - offsetY + Math.random()*woggle-woggle/2
+      lerp(A.x,B.x,t) + offsetX + Math.random()*woggle-woggle/2,
+      lerp(A.y,B.y,t) - offsetY + Math.random()*woggle-woggle/2
     ];
     sequence_s.push(anchor);
     sequence_v.push(anchor);
@@ -99,40 +110,38 @@ function drawPegs(){
 
     if(slices === 2){
       let secondLastHandle = [
-        lerp(A[0],B[0],(slices-1)/slices+overshoot*mult/slices) + offsetX + Math.random()*woggle-woggle/2,
-        lerp(A[1],B[1],(slices-1)/slices+overshoot*mult/slices) - offsetY + Math.random()*woggle-woggle/2
+        lerp(A.x,B.x,(slices-1)/slices+overshoot*mult/slices) + offsetX + Math.random()*woggle-woggle/2,
+        lerp(A.y,B.y,(slices-1)/slices+overshoot*mult/slices) - offsetY + Math.random()*woggle-woggle/2
       ];
       sequence_s.push(secondLastHandle);
       sequence_v.push(secondLastHandle);
     }
   }
   console.groupEnd();
-
-
-
-  let lastHandle = [
-    lerp(A[0],B[0],(slices-overshoot)/slices),
-    lerp(A[1],B[1],(slices-overshoot)/slices)
+*/
+  let anchorG = [
+    lerp(A[0],I[0],(slices-controls.overshoot)/slices),
+    lerp(A[1],I[1],(slices-controls.overshoot)/slices)
   ];
-  sequence_s.push(lastHandle,B);
-  sequence_v.push(lastHandle,B);
 
+  // handle H and anchor B
+  let anchorH = [
+    lerp(A[0],B[0], 1-controls.lead/2),
+    lerp(A[1],B[1], 1-controls.lead/2)
+  ];
+  sequence_s.push(anchorH, I);
+  sequence_v.push(anchorH, I);
+
+  // combine arrays into svg path data
   PATH.setAttributeNS(null, 'd', sequence_s.join(' '));
   VIZ.setAttributeNS(null, 'd', sequence_v.join(' '));
 }
-drawPegs();
+draw();
 
 
 // interactions
-const controls = document.querySelectorAll('input[type=range]');
-for(let i=0; i<controls.length; i++){
-  controls[i].oninput = function(){
-    eval(this.id + ' = ' + this.value);
-    drawPegs();
-  }
-}
 
-DEMO.onmousemove = function(event){
-  B = [event.pageX, event.pageY];
-  drawPegs();
+DEMO.onmousemove = function(event) {
+  I = [event.pageX, event.pageY];
+  draw();
 }

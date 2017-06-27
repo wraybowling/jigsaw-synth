@@ -2,11 +2,6 @@ body{
   background-color:#222;
 }
 
-#puzzle{
-  height:70vh;
-  width:100%;
-}
-
 #dots circle{
   fill: rgba(255,255,255,0.5);
 }

@@ -1,11 +1,11 @@
 .controls{
-  display:flex;
+  display: grid;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
 .controls label{
-  margin: 0.25em 0.25em;
+  margin-bottom: calc( 1vmin + 2px );
   padding:0.5em 0.5em 0.25em 0.5em;
   border:solid 1px #4caaaf;
   flex:1;
@@ -22,11 +22,10 @@
 }
 
 button{
+  width:100%;
   padding:1em;
   font-weight:bold;
   background-color: #ff4ac6;
   color:white;
   border-radius:0.5em;
-  border:0;
-  margin:4px;
 }
