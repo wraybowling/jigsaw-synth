@@ -5,14 +5,14 @@ function drawTabs(p1,p2){
 
   const boundsThereshold = 0.1;
 
-  if(
+  if (
     (Math.abs(p1.x - BOUNDS.xl) < boundsThereshold && Math.abs(p2.x - BOUNDS.xl) < boundsThereshold) ||
     (Math.abs(p1.x - BOUNDS.xr) < boundsThereshold && Math.abs(p2.x - BOUNDS.xr) < boundsThereshold) ||
     (Math.abs(p1.y - BOUNDS.yt) < boundsThereshold && Math.abs(p2.y - BOUNDS.yt) < boundsThereshold) ||
-    (Math.abs(p1.y - BOUNDS.yb) < boundsThereshold && Math.abs(p2.y - BOUNDS.yb) < boundsThereshold)) {
-      //return ['M',p1.x,p1.y,'L',p2.x,p2.y].join(' ');
-      return '';
-    }
+    (Math.abs(p1.y - BOUNDS.yb) < boundsThereshold && Math.abs(p2.y - BOUNDS.yb) < boundsThereshold)
+  ) {
+    return '';
+  }
 
   let length = Math.sqrt(Math.pow(A[0]-B[0],2) + Math.pow(A[1]-B[1],2));
 
