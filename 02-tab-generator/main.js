@@ -65,8 +65,10 @@ function draw(){
 
     // if(i===2) sequenceC.push('S');
     let t = (i+1)/slices;
+    let prevSlice = lerpVec(B,H,i/slices);
+    let thisSlice = lerpVec(B,H,(i+1)/slices);
 
-    // flip flop
+    // flip flop the flipflop
     flipflop *= -1;
 
     let mult = 1 - Math.random() * controls.wiggle;
@@ -74,33 +76,27 @@ function draw(){
     let offsetX = flipflop * slopeX * controls.offset * mult;// / slices;
     let offsetY = flipflop * slopeY * controls.offset * mult;// / slices;
 
-    // leading up to anchor
-    let handle = [
+    let d = [
       lerp(B[0],H[0],t-controls.overshoot*mult/slices) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
       lerp(B[1],H[1],t-controls.overshoot*mult/slices) - offsetY + Math.random()*controls.woggle-controls.woggle/2
-      // lerp(B[0], H[0], t ) + offsetX,
-      // lerp(B[0], H[1], t ) - offsetY
     ];
-    sequenceC.push(handle);
-    sequenceL.push(handle);
-    // anchor
-    let anchor = [
-      // lerp(B[0],H[0],t) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
-      // lerp(B[1],H[1],t) - offsetY + Math.random()*controls.woggle-controls.woggle/2
-      lerp(B[0], H[0], t) + offsetX,
-      lerp(B[1], H[1], t) - offsetY
-    ];
-    sequenceC.push(anchor);
-    sequenceL.push(anchor);
 
-    // if(slices === 2){
-    //   let secondLastHandle = [
-    //     lerp(B[0],H[0],(slices-1)/slices+controls.overshoot*mult/slices) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
-    //     lerp(B[1],H[1],(slices-1)/slices+controls.overshoot*mult/slices) - offsetY + Math.random()*controls.woggle-controls.woggle/2
-    //   ];
-    //   sequenceC.push(secondLastHandle);
-    //   sequenceL.push(secondLastHandle);
-    // }
+    let D = [
+      lerp(B[0],H[0],t) + offsetX + Math.random()*controls.woggle-controls.woggle/2,
+      lerp(B[1],H[1],t) - offsetY + Math.random()*controls.woggle-controls.woggle/2
+      // lerp(B[0], H[0], t) + offsetX,
+      // lerp(B[1], H[1], t) - offsetY
+    ];
+
+    let C = lerpVec(prevSlice,thisSlice,0.5);
+    let c = [
+      C[0] - offsetX * controls.sPower + offsetY * controls.sSlant * flipflop,
+      C[1] + offsetY * controls.sPower - offsetX * controls.sSlant * flipflop
+    ];
+
+
+    sequenceC.push(c,C,d,D);
+    sequenceL.push(c,C,d,D);
   }
   // console.groupEnd();
 
