@@ -89,14 +89,18 @@ function draw(){
     ];
 
     let C = lerpVec(prevSlice,thisSlice,0.5);
-    let c = [
-      C[0] - offsetX * controls.sPower + offsetY * controls.sSlant * flipflop,
-      C[1] + offsetY * controls.sPower - offsetX * controls.sSlant * flipflop
-    ];
 
+    if(i > 0) {
+      let c = [
+        C[0] - offsetX * controls.sPower - (prevSlice[0] - thisSlice[0]) * controls.sSlant,
+        C[1] + offsetY * controls.sPower - (prevSlice[1] - thisSlice[1]) * controls.sSlant
+      ];
+      sequenceC.push(c,C);
+      sequenceL.push(c,C);
+    }
 
-    sequenceC.push(c,C,d,D);
-    sequenceL.push(c,C,d,D);
+    sequenceC.push(d,D);
+    sequenceL.push(d,D);
   }
   // console.groupEnd();
 
