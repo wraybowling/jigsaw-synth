@@ -19,18 +19,6 @@
 
 //'use strict';
 
-// utilities
-function lerp(a, b, t){
-  return (1 - t) * a + t * b;
-}
-
-function lerpVec(a, b, t){
-  return [
-    lerp(a[0], b[0], t),
-    lerp(a[1], b[1], t)
-  ]
-}
-
 // DOM
 const PATH = document.getElementById('squiggle');
 const VIZ = document.getElementById('visualization');

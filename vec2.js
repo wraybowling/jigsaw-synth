@@ -7,30 +7,34 @@ class Vec2 {
   }
 
   randomize(){
-    this.x = Math.sin(this.originX / 0.01 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originX / 0.7 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originY / 0.02 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originY / 0.3 / controls.pieceSize + controls.seed)
-           * controls.voronoise * controls.pieceSize
+    this.x = Math.sin(this.originX / 0.01 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originX / 0.7 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originY / 0.02 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originY / 0.3 / controls.randomSize + controls.randomSeed)
+           * controls.random * controls.randomSize
            + this.originX;
-    this.y = Math.sin(this.originX / 0.02 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originX / 0.5 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originY / 0.045 / controls.pieceSize + controls.seed)
-           * Math.sin(this.originY / 0.6 / controls.pieceSize + controls.seed)
-           * controls.voronoise * controls.pieceSize
+    this.y = Math.sin(this.originX / 0.02 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originX / 0.5 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originY / 0.045 / controls.randomSize + controls.randomSeed)
+           * Math.sin(this.originY / 0.6 / controls.randomSize + controls.randomSeed)
+           * controls.controls.randomSize * controls.randomSize
            + this.originY;
   }
 }
 
 
 // utilities to be refactored
-function lerp(v0, v1, t){
-  return (1 - t) * v0 + t * v1;
+function lerp(a, b, t){
+  return (1 - t) * a + t * b;
 }
 
-function lerpVec(v0, v1, t){
-  return {
-    x: lerp(v0.x, v1.x, t),
-    y: lerp(v0.y, v1.y, t)
-  }
+function lerpVec (
+  vA = new Vec2(0,0),
+  vB = new Vec2(0,0),
+  t = 0.5
+) {
+  return new Vec2 (
+    lerp(vA.x, vB.x, t),
+    lerp(vA.y, vB.y, t)
+  );
 }
