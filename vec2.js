@@ -7,17 +7,18 @@ class Vec2 {
   }
 
   randomize(){
+    //console.log('the controls obj is', controls);
     this.x = Math.sin(this.originX / 0.01 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originX / 0.7 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originY / 0.02 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originY / 0.3 / controls.randomSize + controls.randomSeed)
-           * controls.random * controls.randomSize
+           * controls.randomSize * controls.randomSize
            + this.originX;
     this.y = Math.sin(this.originX / 0.02 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originX / 0.5 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originY / 0.045 / controls.randomSize + controls.randomSeed)
            * Math.sin(this.originY / 0.6 / controls.randomSize + controls.randomSeed)
-           * controls.controls.randomSize * controls.randomSize
+           * controls.randomSize * controls.randomSize
            + this.originY;
   }
 }
